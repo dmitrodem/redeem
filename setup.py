@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages, Extension
-import numpy as np
 import os
 
 from distutils.sysconfig import get_config_vars
@@ -24,12 +23,10 @@ os.environ['OPT'] = " ".join(
 # Requirements for our application
 # Note: WIP, not a complete list
 INSTALL_REQUIRES = [
-	"spidev==3.2.0", 
-    "scipy",
     "numpy",
-    "python-smbus"
 ]
 
+numpy_dir = os.environ['_python_sysroot'] + "/usr/lib/python2.7/site-packages/numpy/core/include"
 
 pathplanner = Extension(
     '_PathPlannerNative', sources = [
@@ -44,7 +41,7 @@ pathplanner = Extension(
         'redeem/path_planner/prussdrv.c',
         'redeem/path_planner/Logger.cpp'],
     swig_opts=['-c++','-builtin'],
-    include_dirs = [np.get_include()],
+    include_dirs = [numpy_dir],
     extra_compile_args = [
         '-std=c++0x',
         '-g',
@@ -58,7 +55,7 @@ pathplanner = Extension(
 
 setup(
     name = "Redeem",
-    version = "1.2.8",
+    version = "2.0",
     packages = find_packages(exclude=["redeem/path_planner"]),
     data_files=[
         ('redeem/firmware', [

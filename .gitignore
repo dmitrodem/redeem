@@ -27,3 +27,6 @@ dist/
 Redeem.egg-info/
 build/
 sftp-config.json
+
+# markdown
+.markdown-preview.html
